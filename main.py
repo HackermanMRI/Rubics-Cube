@@ -15,9 +15,6 @@ title_text = Text(
 )
 
 
-
-
-
 DirectionalLight().look_at(Vec3(1, -2, -1))
 AmbientLight(color=color.rgba(100, 100, 255, 0.2))
 camera.position = (0,-1,-15)
@@ -48,7 +45,7 @@ def create_cubelet(x, y, z):
     if z == 1:  # Front face
         Entity(parent=cubelet, model='quad', color=color.red, scale=face_size, position=(0, 0, 0.501), double_sided=True)
     if z == -1:  # Back face
-        Entity(parent=cubelet, model='quad', color=color.orange, scale=face_size, position=(0, 0, -0.501), rotation_y=180, double_sided=True)
+        Entity(parent=cubelet, model='quad', color=color.pink, scale=face_size, position=(0, 0, -0.501), rotation_y=180, double_sided=True)
     if x == -1:  # Left face
         Entity(parent=cubelet, model='quad', color=color.blue, scale=face_size, position=(-0.501, 0, 0), rotation_y=90,double_sided=True)
     if x == 1:  # Right face
@@ -155,7 +152,7 @@ def shuffle_cube():
 
     rotate_layer(axis, value, angle)
 
-shuffle_button = Button(text='Shuffle', scale=0.1, position=(-0.5, 0.2),color=color.orange.tint(-.2),text_color=color.black)
+shuffle_button = Button(text='Shuffle', scale=0.1, position=(-0.5, 0.2),color=color.pink.tint(-.2),text_color=color.black)
 shuffle_button.on_click = shuffle_cube
 
 
