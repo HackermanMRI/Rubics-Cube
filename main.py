@@ -1,3 +1,6 @@
+#hackermanmri29_Mrinmoy_Dewan
+#CSE, Jagannath University
+
 from ursina import *
 import random
 
@@ -6,7 +9,7 @@ title_text = Text(
     text="3D Rubik's Cube Simulator",
     position=(0,-0.17),    
     origin=(0, 0),
-    scale=1.2,
+    scale=1.1,
     color=color.azure,
     background=True
 )
@@ -14,6 +17,9 @@ title_text = Text(
 
 
 
+
+DirectionalLight().look_at(Vec3(1, -2, -1))
+AmbientLight(color=color.rgba(100, 100, 255, 0.2))
 camera.position = (0,-1,-15)
 camera.rotation =(0,0,0)
 camera.look_at(Vec3(0,0,0))
@@ -22,7 +28,7 @@ EditorCamera()
 CUBE_SIZE = 0.7
 OFFSET = CUBE_SIZE*1.13
 
-
+#Creating boxs
 def create_cubelet(x, y, z):
     cubelet = Entity(
         model='cube',
@@ -51,6 +57,7 @@ def create_cubelet(x, y, z):
     return cubelet
 
 
+#arrange the boxs
 cubelets = []
 for x in range(-1,2):
     for y in range(-1,2):
@@ -62,7 +69,7 @@ for x in range(-1,2):
 
 
 pivot = Entity()
-
+#layer rotation function
 def rotate_layer(axis, value, angle):
     pivot.rotation = (0, 0, 0)  
     pivot.position = (0, 0, 0)
@@ -89,7 +96,7 @@ def rotate_layer(axis, value, angle):
     invoke(detach, delay=0.8)
 
 
-
+#detection which part is faced currently 
 def get_closest_axis_direction(vector):
     axes = {
         'x': Vec3(1,0,0),
@@ -107,7 +114,7 @@ def get_closest_axis_direction(vector):
 
 
 move_history = []
-
+#taking input
 def input(key):
     if key == 'z' and move_history:
         axis, value, angle = move_history.pop()
@@ -140,7 +147,7 @@ def input(key):
     move_history.append((axis, value, angle))
     
 
-
+#suffle
 def shuffle_cube():
     axis = random.choice(['x', 'y', 'z'])
     value = random.choice([-1, 1])
@@ -148,11 +155,11 @@ def shuffle_cube():
 
     rotate_layer(axis, value, angle)
 
-shuffle_button = Button(text='Shuffle', scale=0.1, position=(-0.5, 0.2))
+shuffle_button = Button(text='Shuffle', scale=0.1, position=(-0.5, 0.2),color=color.orange.tint(-.2),text_color=color.black)
 shuffle_button.on_click = shuffle_cube
 
 
-
+#reset
 def reset_cube():
     for c in cubelets:
         destroy(c)
@@ -164,11 +171,11 @@ def reset_cube():
                 cubelet = create_cubelet(x,y,z)
                 cubelets.append(cubelet)
     
-reset_button = Button(text='Reset', scale=0.1, position=(-0.62, 0.2),color=color.red.tint(-.2),text_color=color.white)
+reset_button = Button(text='Reset', scale=0.1, position=(-0.62, 0.2),color=color.green.tint(-.2),text_color=color.black)
 reset_button.on_click = reset_cube
 
 
-
+#bottom text
 controls_text = Text(
     text="""
     Key Bindings For Moves
@@ -185,7 +192,15 @@ R'-> shift + R          L'-> shift + L          U'-> shift + U          D'-> shi
     background=True
 
 )
-
+hint_text = Text(
+    text="""*always delay 1 sec after making a move...
+    otherwise the cube will be broke""",
+    position=(0.62, 0.2),  
+    origin=(0, 0),
+    scale=0.8,
+    color=color.red,
+    background=True
+)
 
 
 app.run()
