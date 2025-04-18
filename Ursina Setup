@@ -1,0 +1,9 @@
+Ursina Engine Installation guide: 
+(in command line for pc)
+
+1. Go to your project directory and open cmd from that folder: 
+2. Create a virtual environment: 
+python -m venv venv
+venv\Scripts\activate
+3. Install Ursina: 
+pip install ursina
