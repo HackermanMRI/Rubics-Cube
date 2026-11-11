@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="description" content="A 3D Rubik's Cube simulator: orbit with the mouse, turn layers with the keyboard or by dragging stickers.">
+  <meta name="color-scheme" content="dark">
+  <title>Rubik's Cube Simulator</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <main class="app">
+    <section class="stage" aria-label="Cube">
+      <div id="scene" class="scene" role="img"
+           aria-label="3D Rubik's Cube. Drag the background to rotate the view, drag a sticker to turn a layer."></div>
+      <p class="stage__hint">Drag background to orbit · drag a sticker to turn · keys U D L R F B (Shift = reverse)</p>
+    </section>
+
+    <aside class="panel">
+      <header class="panel__head">
+        <h1>Rubik's Cube Simulator</h1>
+        <p id="status" class="status" role="status" aria-live="polite" data-kind="solved">Solved</p>
+      </header>
+
+      <dl class="stats">
+        <div><dt>Time</dt><dd id="time">00:00.00</dd></div>
+        <div><dt>Moves</dt><dd id="moves">0</dd></div>
+      </dl>
+
+      <div class="actions">
+        <button id="scramble" class="btn btn--primary" type="button">Scramble</button>
+        <button id="undo" class="btn" type="button" disabled>Undo</button>
+        <button id="redo" class="btn" type="button" disabled>Redo</button>
+        <button id="solve" class="btn" type="button" title="Plays every move back in reverse">Solve</button>
+        <button id="reset" class="btn" type="button">Reset</button>
+        <button id="reset-view" class="btn" type="button">Reset view</button>
+      </div>
+
+      <label class="field" for="speed">
+        <span>Turn speed</span>
+        <input id="speed" type="range" min="80" max="500" step="10" value="360">
+      </label>
+
+      <section aria-labelledby="pad-title">
+        <h2 id="pad-title">Moves</h2>
+        <div id="pad" class="pad">
+          <button class="btn" type="button" data-move="U" aria-label="U, up clockwise">U</button>
+          <button class="btn" type="button" data-move="D" aria-label="D, down clockwise">D</button>
+          <button class="btn" type="button" data-move="L" aria-label="L, left clockwise">L</button>
+          <button class="btn" type="button" data-move="R" aria-label="R, right clockwise">R</button>
+          <button class="btn" type="button" data-move="F" aria-label="F, front clockwise">F</button>
+          <button class="btn" type="button" data-move="B" aria-label="B, back clockwise">B</button>
+          <button class="btn" type="button" data-move="U'" aria-label="U prime, up counter-clockwise">U'</button>
+          <button class="btn" type="button" data-move="D'" aria-label="D prime, down counter-clockwise">D'</button>
+          <button class="btn" type="button" data-move="L'" aria-label="L prime, left counter-clockwise">L'</button>
+          <button class="btn" type="button" data-move="R'" aria-label="R prime, right counter-clockwise">R'</button>
+          <button class="btn" type="button" data-move="F'" aria-label="F prime, front counter-clockwise">F'</button>
+          <button class="btn" type="button" data-move="B'" aria-label="B prime, back counter-clockwise">B'</button>
+        </div>
+      </section>
+
+      <form id="algorithm-form" class="algorithm" novalidate>
+        <label for="algorithm">Run an algorithm</label>
+        <div class="algorithm__row">
+          <input id="algorithm" type="text" maxlength="2000" autocomplete="off" autocapitalize="off"
+                 spellcheck="false" placeholder="R U R' U'" aria-describedby="algorithm-error">
+          <button class="btn btn--primary" type="submit">Run</button>
+        </div>
+        <p id="algorithm-error" class="error" role="alert"></p>
+      </form>
+
+      <section aria-labelledby="history-title">
+        <h2 id="history-title">History</h2>
+        <p id="history" class="history">No moves yet</p>
+      </section>
+
+      <details class="help">
+        <summary>Controls</summary>
+        <dl>
+          <dt><kbd>U</kbd> <kbd>D</kbd> <kbd>L</kbd> <kbd>R</kbd> <kbd>F</kbd> <kbd>B</kbd></dt><dd>Turn a face clockwise</dd>
+          <dt><kbd>Shift</kbd> + key</dt><dd>Turn it counter-clockwise (U', R' …)</dd>
+          <dt><kbd>M</kbd> <kbd>E</kbd> <kbd>S</kbd></dt><dd>Middle slices</dd>
+          <dt><kbd>X</kbd> <kbd>Y</kbd> <kbd>Z</kbd></dt><dd>Rotate the whole cube</dd>
+          <dt>Arrow keys</dt><dd>Orbit the view</dd>
+          <dt><kbd>Ctrl</kbd> + <kbd>Z</kbd> / <kbd>Ctrl</kbd> + <kbd>Y</kbd></dt><dd>Undo / redo</dd>
+          <dt>Mouse or touch</dt><dd>Drag the background to orbit; drag a sticker to turn its layer</dd>
+        </dl>
+        <p>Faces are named from where you are looking: R is always the side on your right. The text box also takes 2 (R2), wide moves (Rw or r) and x y z.</p>
+      </details>
+    </aside>
+  </main>
+  <noscript><p class="noscript">This simulator needs JavaScript.</p></noscript>
+</body>
+</html>
