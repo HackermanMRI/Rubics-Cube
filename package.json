@@ -1,0 +1,14 @@
+{
+  "name": "rubiks-cube-simulator",
+  "version": "1.0.0",
+  "description": "3D Rubik's Cube simulator for the browser. No dependencies, no build step.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
